@@ -1,35 +1,28 @@
 package com.example.cinema.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "USERS")
-public class User {
+@Table(name = "USER_ROLES")
+public class UserRole {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Column(name = "name")
     private String name;
 
-    @NotBlank
-    @Column(name = "password")
-    private String password;
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    private Set<User> users;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<UserRole> roles;
-
-    public User() {
+    public UserRole() {
     }
 
     public Long getId() {
@@ -48,25 +41,17 @@ public class User {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<UserRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<UserRole> roles) {
-        this.roles = roles;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, password);
+        return Objects.hash(id, name);
     }
 
     @Override
@@ -77,19 +62,16 @@ public class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(password, user.password);
+        UserRole role = (UserRole) o;
+        return Objects.equals(id, role.id) &&
+                Objects.equals(name, role.name);
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserRole{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", roles=" + roles +
                 '}';
     }
 }

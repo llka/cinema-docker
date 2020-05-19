@@ -1,4 +1,4 @@
-package com.example.cinema.controller;
+package com.example.cinema.controller.rest;
 
 import com.example.cinema.entity.User;
 import com.example.cinema.repository.UserRepository;

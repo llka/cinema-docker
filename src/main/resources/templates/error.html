@@ -1,0 +1,12 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<main>
+    <div th:if="message != null" th:text="${message}"></div>
+    <div th:if="message == null" th:text="'Unexpected Error'"></div>
+    <div th:if="status != null" th:text="${status.code}">Status: </div>
+</main>
+
+</body>
+</html>
