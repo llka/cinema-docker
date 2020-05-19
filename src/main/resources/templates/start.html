@@ -8,21 +8,36 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" media="screen">
     <link th:href="@{/css/main.css}" rel="stylesheet" media="screen">
     <link th:href="@{/fonts/stylesheet.css}" rel="stylesheet" media="screen">
-    <link th:href="@{/css/slick.css}" rel="stylesheet" type="text/css" />
-    <link th:href="@{/css/slick-theme.css}"  rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/slick.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/slick-theme.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/cinema-style.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
 <header>
-    <div class="container header_flex" xmlns:th="http://www.thymeleaf.org">
+    <div class="container header_flex">
+        <div class="user-info-container">
+            <div th:if="${clientSession.authenticated}" class="user-info">
+                <div th:text=" 'Authenticated as ' + ${clientSession.user.name}"></div>
+                <div><a th:href="@{/logout}">Logout</a></div>
+                <div><a th:href="@{/cart}">Cart</a></div>
+            </div>
+
+            <div th:if="${!clientSession.authenticated}" class="user-info">
+                <div th:text=" 'Not Authenticated '"></div>
+                <div><a th:href="@{/login}">Sign in</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="container header_flex">
         <div class="row">
             <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
                 <div class="logo">
                     <a href="start.html"><img th:src="@{/img/logo.png}"></a>
                 </div>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
 
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 search-form ">
                         <input type="search" placeholder="Введите запрос для поиска">
@@ -38,9 +53,6 @@
                         <a class="menu_item" href="otzivy.html">Отзывы</a>
                         <a class="menu_item" href="kontakty.html">Контакты</a>
                     </div>
-                </div>
-                <div class="row">
-                    <span th:if="session.isAuthenticated == true" th:text=" 'Authenticated as ' + ${session.user.name}"></span>
                 </div>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">

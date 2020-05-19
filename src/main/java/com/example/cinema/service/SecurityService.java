@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,20 +35,28 @@ public class SecurityService {
 
     public SessionDto getCurrentSession() {
         SessionDto sessionDto = new SessionDto();
-        User currentUser = findLoggedInUser();
+        User currentUser = getCurrentUser();
 
         if (currentUser != null) {
             sessionDto.setUser(currentUser);
             sessionDto.setAuthenticated(true);
         }
+        log.debug("current client session: {}", sessionDto);
         return sessionDto;
     }
 
-    public User findLoggedInUser() {
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof UserDetails) {
-            String name = ((UserDetails) userDetails).getUsername();
-            return userService.findByName(name);
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null) {
+            if (authentication.getPrincipal() instanceof UserDetails) {
+                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+                String name = userDetails.getUsername();
+                return userService.findByName(name);
+            }
+            else {
+                log.warn("Unknown Authentication: {}", authentication);
+            }
         }
 
         return null;
@@ -63,7 +72,7 @@ public class SecurityService {
 
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            log.debug("Auto login {} successfully!", username);
+            log.info("User: {} logged in successfully!", username);
         }
     }
 }

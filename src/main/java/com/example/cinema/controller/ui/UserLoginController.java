@@ -40,7 +40,7 @@ public class UserLoginController {
         user = userService.save(user);
 
         securityService.autoLogin(user.getName(), decodedPassword);
-        model.addAttribute("session", securityService.getCurrentSession());
-        return "start";
+        model.addAttribute("clientSession", securityService.getCurrentSession());
+        return "redirect:/cinema";
     }
 }

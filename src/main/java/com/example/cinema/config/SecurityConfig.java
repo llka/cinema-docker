@@ -51,11 +51,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/cinema", "/cinema/**")
                 .hasAuthority("client")
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
+                    .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/cinema")
+                    .failureUrl("/login")
                 .and()
-                .logout()
-                .permitAll();
+                    .logout()
+                    .logoutSuccessUrl("/login");
     }
 }

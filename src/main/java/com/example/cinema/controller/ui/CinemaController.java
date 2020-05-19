@@ -22,7 +22,7 @@ public class CinemaController {
     @GetMapping
     public String start(final Model model) {
 
-        model.addAttribute("session", securityService.getCurrentSession());
+        model.addAttribute("clientSession", securityService.getCurrentSession());
 
         return "start";
     }

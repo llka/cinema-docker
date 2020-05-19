@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SessionDto {
-    private boolean isAuthenticated = false;
+    private boolean authenticated = false;
     private User user;
 }
