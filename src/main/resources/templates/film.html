@@ -1,39 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Филь</title>
+    <title>Film</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="css/main.css" rel="stylesheet" media="screen">
-    <link href="fonts/stylesheet.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" type="text/css" href="css/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="css/slick-theme.css"/>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/css/main.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/fonts/stylesheet.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/css/slick.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/slick-theme.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/cinema-style.css}" rel="stylesheet" type="text/css"/>
 
     <script src="https://smtpjs.com/v3/smtp.js"></script>
-    <script src="js/book_ticket.js" type="text/javascript"></script>
 </head>
 <body>
 
 <header>
     <div class="container header_flex">
-        <div class="row">
-            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                <div class="logo">
-                    <a href="start.html"><img src="img/logo.png"></a>
-
-                </div>
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+            <div class="logo">
+                <a href="start.html"><img th:src="@{/img/logo.png}"></a>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
+        </div>
+        <div class="user-info-container">
+            <div th:if="${clientSession.authenticated}" class="user-info">
+                <div th:text=" 'Authenticated as ' + ${clientSession.user.name}"></div>
+                <div><a th:href="@{/logout}">Logout</a></div>
+                <div><a th:href="@{/cinema/cart}">Cart</a></div>
+            </div>
 
+            <div th:if="${!clientSession.authenticated}" class="user-info">
+                <div th:text=" 'Not Authenticated '"></div>
+                <div><a th:href="@{/login}">Sign in</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="container header_flex">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 search-form ">
                         <input type="search" placeholder="Введите запрос для поиска">
-                        <a href=""><img src="img/search.png" class="icon-header"></a>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12  butt">
-                            <div class="button" id="buy_ticket_btn" onclick="buy_ticket('Мстители. Финал')">Купить билет</div>
+                        <a th:href="@{/cinema/film}"><img th:src="@{/img/search.png}" class="icon-header"></a>
                     </div>
                 </div>
                 <div class="row">
@@ -56,12 +65,13 @@
         </div>
     </div>
 </header>
+
+
 <section>
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cent">
-                <div class="title">
-                    Мстители. Финал
+                <div th:text="${film.title}" class="title" >
                 </div>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cent">
@@ -124,270 +134,32 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="tabs">
+                    <h2>Available tickets:</h2>
+                    <table class="table" style="color: black;background: white;">
+                        <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Place Number</th>
+                            <th scope="col">Film Start Time</th>
+                            <th scope="col">Price $</th>
+                            <th scope="col">Buy button</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="ticket : ${film.availableTickets}">
+                            <td th:text="${ticket.id}"/>
+                            <td th:text="${ticket.placeNumber}"/>
+                            <td th:text="${ticket.filmStartTime}"/>
+                            <td th:text="${ticket.priceInUSD}"/>
+                            <td>
 
-                    <input id="tab1" type="radio" name="tabs" checked>
-                    <label for="tab1">28.04</label>
-                    <input id="tab2" type="radio" name="tabs">
-                    <label for="tab2">29.04</label>
-                    <input id="tab3" type="radio" name="tabs">
-                    <label for="tab3">30.04</label>
-                    <input id="tab4" type="radio" name="tabs">
-                    <label for="tab4">01.05</label>
-                    <input id="tab5" type="radio" name="tabs">
-                    <label for="tab5">02.05</label>
-                    <input id="tab6" type="radio" name="tabs">
-                    <label for="tab6">03.05</label>
-                    <input id="tab7" type="radio" name="tabs">
-                    <label for="tab7">04.05</label>
-
-                    <section id="content-tab1" class="underline">
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-
-                    </section>
-                    <section id="content-tab2" class="underline">
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                    </section>
-                    <section id="content-tab3" class="underline">
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                    </section>
-                    <section id="content-tab4" class="underline">
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                    </section>
-                    <section id="content-tab5" class="underline">
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                    </section>
-                    <section id="content-tab6" class="underline">
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                    </section>
-                    <section id="content-tab7" class="underline">
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                        <div class="buy_tickets_slider">
-                            <p class="slider_text_tickets">Мстители. Финал</p>
-                            <div class="dates"><p class="date">14.00</p>
-                                <p class="date">14.00</p></div>
-                        </div>
-                    </section>
-
-
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 now-butt">
-                <div class="button">Выбрать билет на другую дату
+                                <form th:action="@{'/cinema/film/' + ${film.id} + '/ticket/' + ${ticket.id} + '/buy'}" method="post">
+                                    <span><input type="submit" style="color: black;" value="Buy"/></span>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

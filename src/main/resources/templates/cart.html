@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Главная</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/css/main.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/fonts/stylesheet.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/css/slick.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/slick-theme.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/cinema-style.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<header>
+    <div class="container header_flex">
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+            <div class="logo">
+                <a href="start.html"><img th:src="@{/img/logo.png}"></a>
+            </div>
+        </div>
+        <div class="user-info-container">
+            <div th:if="${clientSession.authenticated}" class="user-info">
+                <div th:text=" 'Authenticated as ' + ${clientSession.user.name}"></div>
+                <div><a th:href="@{/logout}">Logout</a></div>
+                <div><a th:href="@{/cinema/cart}">Cart</a></div>
+            </div>
+
+            <div th:if="${!clientSession.authenticated}" class="user-info">
+                <div th:text=" 'Not Authenticated '"></div>
+                <div><a th:href="@{/login}">Sign in</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="container header_flex">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 search-form ">
+                        <input type="search" placeholder="Введите запрос для поиска">
+                        <a th:href="@{/cinema/film}"><img th:src="@{/img/search.png}" class="icon-header"></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 menu ">
+                        <a class="menu_item" href="prokat.html">Сейчас в прокате</a>
+                        <a class="menu_item" href="premier.html">Премьеры</a>
+                        <a class="menu_item" href="akcii.html">Акции</a>
+                        <a class="menu_item" href="about.html">О кинотеатре</a>
+                        <a class="menu_item" href="otzivy.html">Отзывы</a>
+                        <a class="menu_item" href="kontakty.html">Контакты</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                <div class="phone_numbers">
+                    <a href="tel:+375 (99) 999 99 99">Тел. кассы:<br>+375 (99) 999 99 99</a>
+                    <a href="tel:+375 (99) 999 99 99">Тел. администрации:<br>+375 (99) 999 99 99</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div style="background: #131617;">
+    <div th:if="${clientSession.authenticated}" class="container">
+        <h2>Your tickets:</h2>
+        <table class="table table-striped" style="color: black;background: white;">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Film Title</th>
+                <th scope="col">Place Number</th>
+                <th scope="col">Film Start Time</th>
+                <th scope="col">Purchase Time</th>
+                <th scope="col">Price $</th>
+                <th scope="col">Remove ticket</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ticket : ${clientSession.user.tickets}">
+                <td th:text="${ticket.id}"/>
+                <td th:text="${ticket.film.title}"/>
+                <td th:text="${ticket.placeNumber}"/>
+                <td th:text="${ticket.filmStartTime}"/>
+                <td th:text="${ticket.purchaseTime}"/>
+                <td th:text="${ticket.priceInUSD}"/>
+                <td>
+                    <a th:href="@{'/cinema/ticket/' + ${ticket.id} + '/removeFromCart'}"> Remove </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${!clientSession.authenticated}" class="user-info">
+        <div th:text=" 'Not Authenticated '"></div>
+        <div><a th:href="@{/login}">Sign in</a></div>
+    </div>
+</div>
+
+<footer>
+    <div class="container header_flex">
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                <div class="logo">
+                    <a href="start.html"><img th:src="@{/img/logo.png}"></a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-5 col-sm-12 col-xs-12 menu_footer ">
+                <a class="menu_item" href="prokat.html">Сейчас в прокате</a>
+                <a class="menu_item" href="premier.html">Премьеры</a>
+                <a class="menu_item" href="akcii.html">Акции</a>
+
+            </div>
+            <div class="col-lg-2 col-md-5 col-sm-12 col-xs-12 menu_footer ">
+                <a class="menu_item" href="about.html">О кинотеатре</a>
+                <a class="menu_item" href="otzivy.html">Отзывы</a>
+                <a class="menu_item" href="kontakty.html">Контакты</a>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 copy">
+                <div>
+                    2019 © Все права защищены
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                <div class="phone_numbers">
+                    <a href="tel:+375 (99) 999 99 99">Тел. кассы:<br>+375 (99) 999 99 99</a>
+                    <a href="tel:+375 (99) 999 99 99">Тел. администрации:<br>+375 (99) 999 99 99</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

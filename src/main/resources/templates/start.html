@@ -16,11 +16,16 @@
 
 <header>
     <div class="container header_flex">
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+            <div class="logo">
+                <a href="start.html"><img th:src="@{/img/logo.png}"></a>
+            </div>
+        </div>
         <div class="user-info-container">
             <div th:if="${clientSession.authenticated}" class="user-info">
                 <div th:text=" 'Authenticated as ' + ${clientSession.user.name}"></div>
                 <div><a th:href="@{/logout}">Logout</a></div>
-                <div><a th:href="@{/cart}">Cart</a></div>
+                <div><a th:href="@{/cinema/cart}">Cart</a></div>
             </div>
 
             <div th:if="${!clientSession.authenticated}" class="user-info">
@@ -31,17 +36,11 @@
     </div>
     <div class="container header_flex">
         <div class="row">
-            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                <div class="logo">
-                    <a href="start.html"><img th:src="@{/img/logo.png}"></a>
-                </div>
-            </div>
-
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 search-form ">
                         <input type="search" placeholder="Введите запрос для поиска">
-                        <a href="film.html"><img th:src="@{/img/search.png}" class="icon-header"></a>
+                        <a th:href="@{/cinema/film}"><img th:src="@{/img/search.png}" class="icon-header"></a>
                     </div>
                 </div>
                 <div class="row">
