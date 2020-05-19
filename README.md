@@ -24,3 +24,6 @@ chmod +x stop.sh
 
 ./stop.sh
 ```
+
+
+Open in browser `localhost:8080/cinema`
