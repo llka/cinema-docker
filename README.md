@@ -16,10 +16,11 @@
     ```
 
 # Run Locally
+```$xslt
+chmod +x start.sh
+chmod +x stop.sh
 
-./gradlew clean build
-./gradlew docker
+./start.sh
 
-docker-compose up -d
-
-docker-compose down
+./stop.sh
+```
