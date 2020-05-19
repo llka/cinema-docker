@@ -3,6 +3,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
     id 'com.palantir.docker' version '0.24.0'
+    id 'com.google.cloud.tools.jib' version '2.0.0'
 }
 
 ext {
@@ -62,3 +63,18 @@ docker {
     buildArgs(['DEPENDENCY': "dependency"])
 }
 
+jib {
+    container.creationTime="USE_CURRENT_TIMESTAMP"
+    from {
+        image = "adoptopenjdk/openjdk12:alpine-jre"
+    }
+
+    to {
+        image = "com.example/cinema"
+        tags = [getCheckedOutGitCommitHash().toString(), "latest"]
+    }
+}
+
+static def getCheckedOutGitCommitHash() {
+    'git rev-parse --verify HEAD'.execute().text.trim()
+}
