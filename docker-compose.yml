@@ -1,7 +1,8 @@
 version: '3.3'
 services:
   cinema-app:
-    image: 'com.example/cinema:latest'
+#    image: 'com.example/cinema:latest'
+    image: 'ilka/ilka_images_repository:cinema-app'
     container_name: cinema
     depends_on:
       - postgre-db
