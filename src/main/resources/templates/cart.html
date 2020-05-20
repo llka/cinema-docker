@@ -71,7 +71,7 @@
             <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Film Title</th>
+                <th scope="col">Film</th>
                 <th scope="col">Place Number</th>
                 <th scope="col">Film Start Time</th>
                 <th scope="col">Purchase Time</th>
@@ -83,6 +83,7 @@
             <tr th:each="ticket : ${clientSession.user.tickets}">
                 <td th:text="${ticket.id}"/>
                 <td th:text="${ticket.film.title}"/>
+                <td> <a th:href="@{'/cinema/film/' + ${ticket.film.id}}" th:text="${ticket.film.title}">  </a> </td>
                 <td th:text="${ticket.placeNumber}"/>
                 <td th:text="${ticket.filmStartTime}"/>
                 <td th:text="${ticket.purchaseTime}"/>
