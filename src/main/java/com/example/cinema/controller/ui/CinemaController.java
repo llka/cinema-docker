@@ -30,6 +30,16 @@ public class CinemaController {
         return "start";
     }
 
+    @GetMapping("/film")
+    public String getFilm(final Model model) {
+        Film film = filmService.findTheOnlyFilmId();
+
+        model.addAttribute("film", film);
+
+        addClientSessionAttribute(model);
+        return "film";
+    }
+
     @GetMapping("/film/{filmId}")
     public String getFilm(@PathVariable("filmId") Long filmId, final Model model) {
         Film film = filmService.findFilmById(filmId);

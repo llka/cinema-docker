@@ -16,4 +16,9 @@ public class FilmService {
         return filmRepository.findById(id).orElseThrow(
                 () -> new RestException("Not found film with id: " + id, HttpStatus.NOT_FOUND));
     }
+
+    public Film findTheOnlyFilmId() {
+        return filmRepository.findAll().stream().findFirst().orElseThrow(
+                () -> new RestException("Not found film.", HttpStatus.NOT_FOUND));
+    }
 }

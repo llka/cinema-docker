@@ -1,11 +1,11 @@
 package com.example.cinema.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,29 +13,37 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "USER_ROLES")
+@Table(name = "ACTORS")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRole {
+public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @NotBlank
+    private String firstName;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private Set<User> users;
+    @NotBlank
+    private String lastName;
+
+    @Positive
+    private int birthYear;
+
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private Set<Film> films;
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, firstName, lastName, birthYear);
     }
 
     @Override
@@ -46,16 +54,20 @@ public class UserRole {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        UserRole role = (UserRole) o;
-        return Objects.equals(id, role.id) &&
-                Objects.equals(name, role.name);
+        Actor actor = (Actor) o;
+        return birthYear == actor.birthYear &&
+                Objects.equals(id, actor.id) &&
+                Objects.equals(firstName, actor.firstName) &&
+                Objects.equals(lastName, actor.lastName);
     }
 
     @Override
     public String toString() {
-        return "UserRole{" +
+        return "Actor{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthYear=" + birthYear +
                 '}';
     }
 }

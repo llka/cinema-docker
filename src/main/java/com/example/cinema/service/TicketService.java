@@ -53,6 +53,7 @@ public class TicketService {
         if (userTickets != null && userTickets.contains(ticket)) {
             userTickets.remove(ticket);
             ticket.setPurchaseTime(null);
+            ticketRepository.save(ticket);
             userService.save(user);
         }
     }

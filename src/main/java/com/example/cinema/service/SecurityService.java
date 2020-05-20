@@ -41,7 +41,6 @@ public class SecurityService {
             sessionDto.setUser(currentUser);
             sessionDto.setAuthenticated(true);
         }
-        log.debug("current client session: {}", sessionDto);
         return sessionDto;
     }
 
