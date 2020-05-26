@@ -17,8 +17,15 @@ public class FilmService {
                 () -> new RestException("Not found film with id: " + id, HttpStatus.NOT_FOUND));
     }
 
-    public Film findTheOnlyFilmId() {
-        return filmRepository.findAll().stream().findFirst().orElseThrow(
-                () -> new RestException("Not found film.", HttpStatus.NOT_FOUND));
+    public Film getAvengersFilm() {
+        return findFilmByTitle("Avengers");
+    }
+
+    public Film findFilmByTitle(String title) {
+        if (title == null || title.isBlank()) {
+            throw new RestException("To find film provide non empty title!", HttpStatus.BAD_REQUEST);
+        }
+        return filmRepository.findByTitleContainingIgnoreCase(title).orElseThrow(
+                () -> new RestException("Not found film by title: " + title, HttpStatus.NOT_FOUND));
     }
 }

@@ -29,7 +29,7 @@ public class FilmGenre {
     @NotBlank
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
     private Set<Film> films;
 
     @Override

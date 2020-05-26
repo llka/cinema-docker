@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -42,25 +44,32 @@ public class Film {
     @Positive
     @Min(1950)
     private int releaseYear;
+    private String teaserUrl;
 
-    @ManyToMany(mappedBy = "films", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<FilmGenre> genres;
 
-    @ManyToMany(mappedBy = "films", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Actor> actors;
 
-    @OneToMany(cascade = CascadeType.ALL,
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(cascade = CascadeType.PERSIST,
             orphanRemoval = true, mappedBy = "film", fetch = FetchType.EAGER)
-    private List<Ticket> tickets;
+    private Set<Ticket> tickets;
 
     public List<Ticket> getAvailableTickets() {
-        if(tickets == null){
+        if (tickets == null) {
             return Collections.emptyList();
         }
         return tickets.stream()
                 .filter(t -> t.getPurchaseTime() == null)
                 .sorted(Comparator.comparing(Ticket::getPlaceNumber))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title);
     }
 
     @Override
@@ -74,11 +83,6 @@ public class Film {
         Film film = (Film) o;
         return Objects.equals(id, film.id) &&
                 Objects.equals(title, film.title);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title);
     }
 
     @Override

@@ -27,3 +27,30 @@ chmod +x stop.sh
 
 
 Open in browser `localhost:8080/cinema`
+
+# Run Locally in dev mode
+In docker-compose.yml set:
+```$xslt
+cinema-app:
+        image: 'com.example/cinema:latest'
+```
+Run:
+
+```$xslt
+./gradlew clean build
+./gradlew jibDockerBuild
+docker-compose up -d
+```
+
+# Push image to docker hub
+```$xslt
+docker images (to find your image id - IMAGE_ID)
+
+docker tag IMAGE_ID ilka/ilka_images_repository:cinema-app
+
+docker images (to check that image with the desired tag exists)
+
+docker push ilka/ilka_images_repository:cinema-app
+```
+
+

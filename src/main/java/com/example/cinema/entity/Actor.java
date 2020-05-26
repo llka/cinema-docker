@@ -38,7 +38,7 @@ public class Actor {
     @Positive
     private int birthYear;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "actors", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Film> films;
 
     @Override

@@ -15,8 +15,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "USERS")
@@ -43,6 +47,17 @@ public class User {
     @OneToMany(cascade = CascadeType.MERGE,
             orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Ticket> tickets;
+
+    public List<Ticket> getTicketsSortedByFilmAndPlace() {
+        if (tickets == null) {
+            return Collections.emptyList();
+        }
+        Comparator<Ticket> filmComparator = Comparator.comparing(a -> a.getFilm().getTitle());
+        return tickets.stream()
+                .sorted(filmComparator
+                        .thenComparing(Ticket::getPlaceNumber))
+                .collect(Collectors.toList());
+    }
 
     @Override
     public int hashCode() {

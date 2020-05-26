@@ -41,8 +41,12 @@
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 search-form ">
-                        <input type="search" placeholder="Введите запрос для поиска">
-                        <a th:href="@{/cinema/film}"><img th:src="@{/img/search.png}" class="icon-header"></a>
+                        <form th:action="@{/cinema/film/search}" method="GET" enctype="utf8"
+                              style=" display: flex; width: 100%;">
+                            <input style="width: 250%;" name="search" type="search"
+                                   placeholder="Введите запрос для поиска">
+                            <input style="width: 30%;" type="image" th:src="@{/img/search.png}" class="icon-header">
+                        </form>
                     </div>
                 </div>
                 <div class="row">
@@ -71,41 +75,32 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cent">
-                <div th:text="${film.title}" class="title" >
-                </div>
+                <div th:text="${film.title}" class="title"></div>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 cent">
             </div>
         </div>
         <div class="row marg2">
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text">
-                <img src="img/mst.jpg" alt="">
+            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 opis">
+                <div th:each="genre : ${film.genres}">
+                    <p th:text="${genre.name}"></p>
+                </div>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 opis">
-                <p>Боевик</p>
-                <p>Приключения</p>
-                <p>Фантастика</p>
-                <p>Фэнтези</p>
+                <p th:text="${film.country}"></p>
+                <p th:text="${film.releaseYear}"></p>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 opis">
-                <p>США</p>
-                <p>2019</p>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 opis">
-                <p>182 минуты</p>
+                <p th:text="${film.runningTimeInMinutes} + ' минуты'"></p>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 opis">
                 <p>до 15 мая</p>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 marg2">
-                <p>Режиссер: Энтони Руссо, Джо Руссо</p>
-                <p>В ролях: Бри Ларсон, Том Холланд, Брэдли Купер, Карен Гиллан, Скарлетт Йоханссон, Крис Хемсворт,
-                    Роберт Дауни мл., Дэйв Батиста, Джош Бролин</p>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 marg2">
-                <p>Оставшиеся в живых члены команды Мстителей и их союзники должны разработать новый план, который
-                    поможет противостоять разрушительным действиям могущественного титана Таноса. После наиболее
-                    масштабной и трагической битвы в истории они не могут допустить ошибку.</p>
+                <p>В ролях:</p>
+                <span th:each="actor : ${film.actors}">
+                    <p th:text="${actor.firstName} + ' ' + ${actor.lastName}"/>
+                </span>
             </div>
         </div>
         <div class="row marg2">
@@ -115,9 +110,11 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marg2">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/gbcVZgO4n4E" frameborder="0"
+                <iframe width="560" height="315" th:src="${film.teaserUrl}" frameborder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
+                        allowfullscreen>
+
+                </iframe>
             </div>
         </div>
     </div>
@@ -153,7 +150,8 @@
                             <td th:text="${ticket.priceInUSD}"/>
                             <td>
 
-                                <form th:action="@{'/cinema/film/' + ${film.id} + '/ticket/' + ${ticket.id} + '/buy'}" method="post">
+                                <form th:action="@{'/cinema/film/' + ${film.id} + '/ticket/' + ${ticket.id} + '/buy'}"
+                                      method="post">
                                     <span><input type="submit" style="color: black;" value="Buy"/></span>
                                 </form>
                             </td>

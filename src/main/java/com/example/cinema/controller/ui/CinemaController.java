@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import springfox.documentation.annotations.ApiIgnore;
 
 @ApiIgnore
@@ -32,7 +33,7 @@ public class CinemaController {
 
     @GetMapping("/film")
     public String getFilm(final Model model) {
-        Film film = filmService.findTheOnlyFilmId();
+        Film film = filmService.getAvengersFilm();
 
         model.addAttribute("film", film);
 
@@ -44,6 +45,15 @@ public class CinemaController {
     public String getFilm(@PathVariable("filmId") Long filmId, final Model model) {
         Film film = filmService.findFilmById(filmId);
 
+        model.addAttribute("film", film);
+
+        addClientSessionAttribute(model);
+        return "film";
+    }
+
+    @GetMapping("/film/search")
+    public String searchFilms(@RequestParam("search") String search, final Model model) {
+        Film film = filmService.findFilmByTitle(search);
         model.addAttribute("film", film);
 
         addClientSessionAttribute(model);

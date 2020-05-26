@@ -17,12 +17,12 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Service
 public class SeedingService {
-
     @Autowired
     public SeedingService(UserRoleRepository userRoleRepository,
             FilmRepository filmRepository,
@@ -34,12 +34,13 @@ public class SeedingService {
 
         genreRepository.saveAll(genres());
 
-        filmRepository.save(film(genreRepository.findByName("comedy")));
+        filmRepository.save(filmAvengers(genreRepository.findByName("comedy")));
 
-        filmRepository.findAll().stream()
+        filmRepository.save(filmParasite(genreRepository.findByName("drama")));
+
+        filmRepository.findAll()
                 .forEach(film -> ticketRepository.saveAll(tickets(film)));
 
-        actorRepository.saveAll(actors(filmRepository.findAll().stream().findFirst().orElseThrow()));
     }
 
     private List<UserRole> userRoles() {
@@ -48,31 +49,56 @@ public class SeedingService {
         return List.of(role);
     }
 
-    private Film film(FilmGenre genre) {
+    private Film filmAvengers(FilmGenre genre) {
         Film film = new Film();
         film.setTitle("Avengers. Final ");
         film.setRunningTimeInMinutes(120);
         film.setCountry("USA");
         film.setReleaseYear(2019);
         film.setGenres(Set.of(genre));
+        film.setActors(actorsAvengers());
+        film.setTeaserUrl("https://www.youtube.com/embed/gbcVZgO4n4E");
         return film;
     }
 
-    private List<Actor> actors(Film film) {
+    private Film filmParasite(FilmGenre genre) {
+        Film film = new Film();
+        film.setTitle("Parasite ");
+        film.setRunningTimeInMinutes(132);
+        film.setCountry("South Korea");
+        film.setReleaseYear(2019);
+        film.setGenres(Set.of(genre));
+        film.setActors(actorsParasite());
+        film.setTeaserUrl("https://www.youtube.com/embed/5xH0HfJHsaY");
+        return film;
+    }
+
+    private Set<Actor> actorsAvengers() {
         Actor a = new Actor();
         a.setFirstName("Vin");
         a.setLastName("Diesel");
         a.setBirthYear(1970);
-        a.setFilms(Set.of(film));
 
         Actor b = new Actor();
         b.setFirstName("Kurt");
         b.setLastName("Russell");
         b.setBirthYear(1972);
-        b.setFilms(Set.of(film));
 
-        return List.of(a, b);
+        return new HashSet<>(List.of(a, b));
+    }
 
+    private Set<Actor> actorsParasite() {
+        Actor a = new Actor();
+        a.setFirstName("A");
+        a.setLastName("AA");
+        a.setBirthYear(1970);
+
+        Actor b = new Actor();
+        b.setFirstName("B");
+        b.setLastName("BB");
+        b.setBirthYear(1972);
+
+        return new HashSet<>(List.of(a, b));
     }
 
     private List<FilmGenre> genres() {
