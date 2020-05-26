@@ -28,6 +28,10 @@ chmod +x stop.sh
 
 Open in browser `localhost:8080/cinema`
 
+#Api -  Swagger Documentation
+http://localhost:8080/swagger-ui.html
+
+
 # Run Locally in dev mode
 In docker-compose.yml set:
 ```$xslt
@@ -44,6 +48,8 @@ docker-compose up -d
 
 # Push image to docker hub
 ```$xslt
+./gradlew jibDockerBuild (to build image)
+
 docker images (to find your image id - IMAGE_ID)
 
 docker tag IMAGE_ID ilka/ilka_images_repository:cinema-app

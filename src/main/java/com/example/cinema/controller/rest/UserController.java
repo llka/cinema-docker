@@ -19,12 +19,12 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping(path = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/user", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class UserController {
     private final UserRepository userRepository;
 
-    @GetMapping("/all")
+    @GetMapping
     public List<User> getAll() {
         return userRepository.findAll();
     }

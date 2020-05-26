@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class FilmService {
@@ -27,5 +29,13 @@ public class FilmService {
         }
         return filmRepository.findByTitleContainingIgnoreCase(title).orElseThrow(
                 () -> new RestException("Not found film by title: " + title, HttpStatus.NOT_FOUND));
+    }
+
+    public List<Film> findAll(){
+        return filmRepository.findAll();
+    }
+
+    public Film create(Film film){
+        return filmRepository.save(film);
     }
 }
