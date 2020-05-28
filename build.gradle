@@ -44,6 +44,9 @@ dependencies {
     compile "javax.validation:validation-api:${validation}"
     compile "org.hibernate.validator:hibernate-validator:${hibernateValidator}"
 
+    implementation "org.mapstruct:mapstruct:${mapstruct}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstruct}"
+
 
 }
 

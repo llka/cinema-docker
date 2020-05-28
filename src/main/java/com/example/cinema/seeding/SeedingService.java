@@ -34,9 +34,9 @@ public class SeedingService {
 
         genreRepository.saveAll(genres());
 
-        filmRepository.save(filmAvengers(genreRepository.findByName("comedy")));
+        filmRepository.save(filmAvengers(genreRepository.findByName("comedy").get()));
 
-        filmRepository.save(filmParasite(genreRepository.findByName("drama")));
+        filmRepository.save(filmParasite(genreRepository.findByName("drama").get()));
 
         filmRepository.findAll()
                 .forEach(film -> ticketRepository.saveAll(tickets(film)));

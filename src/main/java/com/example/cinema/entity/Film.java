@@ -1,5 +1,6 @@
 package com.example.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -57,6 +58,12 @@ public class Film {
             orphanRemoval = true, mappedBy = "film", fetch = FetchType.EAGER)
     private Set<Ticket> tickets;
 
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
+        tickets.forEach(ticket -> ticket.setFilm(this));
+    }
+
+    @JsonIgnore
     public List<Ticket> getAvailableTickets() {
         if (tickets == null) {
             return Collections.emptyList();

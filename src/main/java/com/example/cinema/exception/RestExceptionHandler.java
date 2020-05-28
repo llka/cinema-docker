@@ -2,10 +2,15 @@ package com.example.cinema.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.Optional;
 
 @Slf4j
@@ -33,5 +38,33 @@ public class RestExceptionHandler {
         modelAndView.addObject("status", HttpStatus.INTERNAL_SERVER_ERROR);
         modelAndView.setViewName(DEFAULT_ERROR_VIEW);
         return modelAndView;
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleNotValidException(MethodArgumentNotValidException exception) {
+        log.info(exception.getMessage());
+
+        StringBuilder message = new StringBuilder();
+        message.append("Following constraint violations were found: ");
+        message.append(String.join(";\n", exception.getBindingResult().getAllErrors()
+                .stream()
+                .map(ObjectError::getDefaultMessage)
+                .toArray(String[]::new)));
+
+        return new ResponseEntity<>(message.toString(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException exception) {
+        log.info(exception.getMessage());
+
+        StringBuilder message = new StringBuilder();
+        message.append("Following constraint violations were found: ");
+        message.append(String.join(";\n", exception.getConstraintViolations()
+                .stream()
+                .map(ConstraintViolation::getMessage)
+                .toArray(String[]::new)));
+
+        return new ResponseEntity<>(message.toString(), HttpStatus.BAD_REQUEST);
     }
 }

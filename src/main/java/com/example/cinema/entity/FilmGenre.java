@@ -1,6 +1,8 @@
 package com.example.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +19,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "FILM_GENRE")
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -29,6 +32,7 @@ public class FilmGenre {
     @NotBlank
     private String name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
     private Set<Film> films;
 
