@@ -74,6 +74,19 @@ public class Film {
                 .collect(Collectors.toList());
     }
 
+    public List<AvailableTicketsByDate> getTicketsByDate() {
+        if (tickets == null) {
+            return Collections.emptyList();
+        }
+        return tickets.stream()
+                .collect(Collectors.groupingBy(Ticket::getFilmStartTime))
+                .entrySet()
+                .stream()
+                .map(entry -> new AvailableTicketsByDate(entry.getKey(), entry.getValue()))
+                .sorted(Comparator.comparing(AvailableTicketsByDate::getTime))
+                .collect(Collectors.toList());
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, title);

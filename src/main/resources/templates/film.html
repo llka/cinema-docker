@@ -128,36 +128,43 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="tabs">
-                    <h2>Available tickets:</h2>
-                    <table class="table" style="color: black;background: white;">
-                        <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Place Number</th>
-                            <th scope="col">Film Start Time</th>
-                            <th scope="col">Price $</th>
-                            <th scope="col">Buy button</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="ticket : ${film.availableTickets}">
-                            <td th:text="${ticket.id}"/>
-                            <td th:text="${ticket.placeNumber}"/>
-                            <td th:text="${ticket.filmStartTime}"/>
-                            <td th:text="${ticket.priceInUSD}"/>
-                            <td>
 
-                                <form th:action="@{'/cinema/film/' + ${film.id} + '/ticket/' + ${ticket.id} + '/buy'}"
-                                      method="post">
-                                    <span><input type="submit" style="color: black;" value="Buy"/></span>
-                                </form>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+        <div th:each="ticketsByDateList : ${film.ticketsByDate}" style="margin-top: 1%;">
+            <div th:onclick="'javascript:showTickets(\'' + ${ticketsByDateList.elementId} + '\')'">
+                <button th:text="${ticketsByDateList.formattedTime}" style="color: black"></button>
+            </div>
+            <div th:id="${ticketsByDateList.elementId}" style="display: none; margin-top: 1%;">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div>
+                            <table class="table" style="color: black;background: white;">
+                                <thead>
+                                <tr>
+                                    <th style="width: 15%; text-align: center;" scope="col">Id</th>
+                                    <th style="width: 15%; text-align: center;" scope="col">Place Number</th>
+                                    <th style="width: 30%; text-align: center;" scope="col">Film Start Time</th>
+                                    <th style="width: 15%; text-align: center;" scope="col">Price $</th>
+                                    <th style="width: 15%; text-align: center;" scope="col">Buy button</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ticket : ${ticketsByDateList.availableTickets}">
+                                    <td style="width: 15%; text-align: center;" th:text="${ticket.id}"/>
+                                    <td style="width: 15%; text-align: center;" th:text="${ticket.placeNumber}"/>
+                                    <td style="width: 30%; text-align: center;" th:text="${ticket.formattedFilmStartTime}"/>
+                                    <td style="width: 15%; text-align: center;" th:text="${ticket.priceInUSD}"/>
+                                    <td style="width: 15%; text-align: center;" >
+
+                                        <form th:action="@{'/cinema/film/' + ${film.id} + '/ticket/' + ${ticket.id} + '/buy'}"
+                                              method="post">
+                                            <span><input type="submit" style="color: black;" value="Buy"/></span>
+                                        </form>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -261,6 +268,17 @@
     </div>
 </footer>
 <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+
+<script>
+    function showTickets(id) {
+        const x = document.getElementById(id);
+        if (x.style.display === 'none') {
+            x.style.display = 'block';
+        } else {
+            x.style.display = 'none';
+        }
+    }
+</script>
 
 </body>
 </html>

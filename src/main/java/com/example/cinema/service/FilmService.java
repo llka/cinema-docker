@@ -1,8 +1,10 @@
 package com.example.cinema.service;
 
 import com.example.cinema.entity.Actor;
+import com.example.cinema.entity.AvailableTicketsByDate;
 import com.example.cinema.entity.Film;
 import com.example.cinema.entity.FilmGenre;
+import com.example.cinema.entity.Ticket;
 import com.example.cinema.exception.RestException;
 import com.example.cinema.repository.ActorRepository;
 import com.example.cinema.repository.FilmGenreRepository;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -59,9 +62,10 @@ public class FilmService {
         Set<Actor> actors = new HashSet<>();
         film.getActors().forEach(actor -> {
             var actorOptional = actorRepository.findByFirstNameAndLastName(actor.getFirstName(), actor.getLastName());
-            if(actorOptional.isPresent()){
+            if (actorOptional.isPresent()) {
                 actors.add(actorOptional.get());
-            }else {
+            }
+            else {
                 actor.setId(null);
                 actors.add(actorRepository.save(actor));
             }
@@ -69,5 +73,14 @@ public class FilmService {
         film.setActors(actors);
 
         return filmRepository.save(film);
+    }
+
+    public List<AvailableTicketsByDate> getTicketsByDateForFilm(Film film) {
+        return film.getTickets().stream()
+                .collect(Collectors.groupingBy(Ticket::getFilmStartTime))
+                .entrySet()
+                .stream()
+                .map(entry -> new AvailableTicketsByDate(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toList());
     }
 }

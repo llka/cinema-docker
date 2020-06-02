@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -113,13 +115,22 @@ public class SeedingService {
 
     private List<Ticket> tickets(Film film) {
         List<Ticket> tickets = new ArrayList<>(10);
-        for (int i = 0; i < 10; i++) {
-            Ticket ticket = new Ticket();
-            ticket.setPlaceNumber(i + 1);
-            ticket.setFilmStartTime(Instant.now().plus(10, ChronoUnit.HOURS));
-            ticket.setFilm(film);
-            ticket.setPriceInUSD(BigDecimal.valueOf(5.50));
-            tickets.add(ticket);
+
+        List<Instant> times = List.of(LocalDate.now().atTime(18, 0).toInstant(ZoneOffset.ofHours(3)),
+                LocalDate.now().atTime(21, 0).toInstant(ZoneOffset.ofHours(3)));
+
+        for (int i = 1; i <= 7; i++) {
+            for (Instant time : times) {
+                Instant filmStartDateTime = time.plus(i, ChronoUnit.DAYS);
+                for (int j = 0; j < 10; j++) {
+                    Ticket ticket = new Ticket();
+                    ticket.setPlaceNumber(j + 1);
+                    ticket.setFilmStartTime(filmStartDateTime);
+                    ticket.setFilm(film);
+                    ticket.setPriceInUSD(BigDecimal.valueOf(5.50));
+                    tickets.add(ticket);
+                }
+            }
         }
         return tickets;
     }

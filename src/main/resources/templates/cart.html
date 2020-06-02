@@ -39,8 +39,10 @@
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 search-form ">
-                        <form th:action="@{/cinema/film/search}" method="GET" enctype="utf8" style=" display: flex; width: 100%;">
-                            <input style="width: 250%;" name="search" type="search" placeholder="Введите запрос для поиска">
+                        <form th:action="@{/cinema/film/search}" method="GET" enctype="utf8"
+                              style=" display: flex; width: 100%;">
+                            <input style="width: 250%;" name="search" type="search"
+                                   placeholder="Введите запрос для поиска">
                             <input style="width: 30%;" type="image" th:src="@{/img/search.png}" class="icon-header">
                         </form>
                     </div>
@@ -72,24 +74,26 @@
         <table class="table table-striped" style="color: black;background: white;">
             <thead>
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Film</th>
-                <th scope="col">Place Number</th>
-                <th scope="col">Film Start Time</th>
-                <th scope="col">Purchase Time</th>
-                <th scope="col">Price $</th>
-                <th scope="col">Remove ticket</th>
+                <th style="width: 10%; text-align: center;" scope="col">Id</th>
+                <th style="width: 15%; text-align: center;" scope="col">Film</th>
+                <th style="width: 10%; text-align: center;" scope="col">Place Number</th>
+                <th style="width: 20%; text-align: center;" scope="col">Film Start Time</th>
+                <th style="width: 20%; text-align: center;" scope="col">Purchase Time</th>
+                <th style="width: 10%; text-align: center;" scope="col">Price $</th>
+                <th style="width: 15%; text-align: center;" scope="col">Remove ticket</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="ticket : ${clientSession.user.ticketsSortedByFilmAndPlace}">
-                <td th:text="${ticket.id}"/>
-                <td> <a th:href="@{'/cinema/film/' + ${ticket.film.id}}" th:text="${ticket.film.title}">  </a> </td>
-                <td th:text="${ticket.placeNumber}"/>
-                <td th:text="${ticket.filmStartTime}"/>
-                <td th:text="${ticket.purchaseTime}"/>
-                <td th:text="${ticket.priceInUSD}"/>
-                <td>
+                <td style="width: 10%; text-align: center;" th:text="${ticket.id}"/>
+                <td style="width: 15%; text-align: center;">
+                    <a th:href="@{'/cinema/film/' + ${ticket.film.id}}" th:text="${ticket.film.title}"> </a>
+                </td>
+                <td style="width: 10%; text-align: center;" th:text="${ticket.placeNumber}"/>
+                <td style="width: 20%; text-align: center;" th:text="${ticket.formattedFilmStartTime}"/>
+                <td style="width: 20%; text-align: center;" th:text="${ticket.formattedPurchaseTime}"/>
+                <td style="width: 10%; text-align: center;" th:text="${ticket.priceInUSD}"/>
+                <td style="width: 15%; text-align: center;">
                     <a th:href="@{'/cinema/ticket/' + ${ticket.id} + '/removeFromCart'}"> Remove </a>
                 </td>
             </tr>

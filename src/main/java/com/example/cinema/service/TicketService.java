@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
+import java.time.ZoneOffset;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,7 +38,7 @@ public class TicketService {
             userTickets = new HashSet<>();
         }
         userTickets.add(ticket);
-        ticket.setPurchaseTime(Instant.now());
+        ticket.setPurchaseTime(Instant.now().atOffset(ZoneOffset.ofHours(3)).toInstant());
 
         userService.save(user);
     }

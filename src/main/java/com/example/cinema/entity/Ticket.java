@@ -1,5 +1,6 @@
 package com.example.cinema.entity;
 
+import com.example.cinema.util.InstantFormatter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,6 +39,22 @@ public class Ticket {
     @JoinColumn(name = "film_id")
     private Film film;
 
+    public String getFormattedFilmStartTime() {
+        return InstantFormatter.format(filmStartTime);
+    }
+
+    public String getFormattedPurchaseTime() {
+        if (purchaseTime == null) {
+            return "";
+        }
+        return InstantFormatter.format(purchaseTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, placeNumber, filmStartTime, purchaseTime);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -51,11 +68,6 @@ public class Ticket {
                 Objects.equals(placeNumber, ticket.placeNumber) &&
                 Objects.equals(filmStartTime, ticket.filmStartTime) &&
                 Objects.equals(purchaseTime, ticket.purchaseTime);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, placeNumber, filmStartTime, purchaseTime);
     }
 
     @Override
