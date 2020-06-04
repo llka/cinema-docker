@@ -91,13 +91,13 @@ public class SeedingService {
 
     private Set<Actor> actorsParasite() {
         Actor a = new Actor();
-        a.setFirstName("A");
-        a.setLastName("AA");
+        a.setFirstName("Kwai");
+        a.setLastName("Ghon");
         a.setBirthYear(1970);
 
         Actor b = new Actor();
-        b.setFirstName("B");
-        b.setLastName("BB");
+        b.setFirstName("J Son");
+        b.setLastName("Park");
         b.setBirthYear(1972);
 
         return new HashSet<>(List.of(a, b));

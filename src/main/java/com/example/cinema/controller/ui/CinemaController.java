@@ -53,6 +53,14 @@ public class CinemaController {
         return "cart";
     }
 
+    @GetMapping("/ticket/{ticketId}/bookFromCart")
+    public String bookTicketByIdFromCart(@PathVariable("ticketId") Long ticketId, final Model model) {
+        ticketService.bookTicketFromCart(ticketId);
+
+        addClientSessionAttribute(model);
+        return "cart";
+    }
+
     private void addClientSessionAttribute(final Model model) {
         model.addAttribute("clientSession", securityService.getCurrentSession());
     }

@@ -34,6 +34,8 @@ public class Ticket {
     @Column(name = "price_in_usd")
     private BigDecimal priceInUSD;
 
+    private boolean booked;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "film_id")

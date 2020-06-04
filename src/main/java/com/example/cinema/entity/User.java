@@ -54,6 +54,7 @@ public class User {
         }
         Comparator<Ticket> filmComparator = Comparator.comparing(a -> a.getFilm().getTitle());
         return tickets.stream()
+                .filter(ticket -> !ticket.isBooked())
                 .sorted(filmComparator
                         .thenComparing(Ticket::getPlaceNumber))
                 .collect(Collectors.toList());

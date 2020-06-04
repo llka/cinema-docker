@@ -74,6 +74,7 @@ public class Film {
                 .collect(Collectors.toList());
     }
 
+    @JsonIgnore
     public List<AvailableTicketsByDate> getTicketsByDate() {
         if (tickets == null) {
             return Collections.emptyList();

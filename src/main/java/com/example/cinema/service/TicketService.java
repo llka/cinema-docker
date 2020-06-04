@@ -58,4 +58,20 @@ public class TicketService {
             userService.save(user);
         }
     }
+
+    @Transactional
+    public void bookTicketFromCart(Long ticketId) {
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new RestException("Ticket not found by id: " + ticketId, HttpStatus.NOT_FOUND));
+
+        User user = securityService.getCurrentUser();
+        Set<Ticket> userTickets = user.getTickets();
+
+        if (userTickets != null && userTickets.contains(ticket)) {
+            userTickets.remove(ticket);
+            ticket.setBooked(true);
+            ticketRepository.save(ticket);
+            userService.save(user);
+        }
+    }
 }
