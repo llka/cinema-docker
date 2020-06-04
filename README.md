@@ -46,7 +46,11 @@ Run:
 docker-compose up -d
 ```
 
-# Push image to docker hub
+# Push image to docker hub"
+```$xslt
+./build_and_push_to_hub.sh
+```
+Or manually:
 ```$xslt
 ./gradlew jibDockerBuild (to build image)
 
