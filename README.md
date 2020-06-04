@@ -58,5 +58,6 @@ docker images (to check that image with the desired tag exists)
 
 docker push ilka/ilka_images_repository:cinema-app
 ```
+check published image here: https://hub.docker.com/repository/docker/ilka/ilka_images_repository
 
 
