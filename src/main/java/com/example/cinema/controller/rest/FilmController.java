@@ -19,7 +19,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping(path = "/api/film", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/films", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class FilmController {
     private final FilmService filmService;

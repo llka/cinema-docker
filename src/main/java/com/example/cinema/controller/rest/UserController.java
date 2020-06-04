@@ -19,7 +19,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping(path = "/api/user", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class UserController {
     private final UserRepository userRepository;

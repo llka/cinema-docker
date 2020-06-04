@@ -4,12 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -30,7 +33,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
@@ -44,6 +47,7 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRole> roles;
 
+    @Fetch(FetchMode.SUBSELECT)
     @OneToMany(cascade = CascadeType.MERGE,
             orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Ticket> tickets;

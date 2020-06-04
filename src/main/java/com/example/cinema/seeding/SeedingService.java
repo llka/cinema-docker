@@ -10,13 +10,13 @@ import com.example.cinema.repository.FilmGenreRepository;
 import com.example.cinema.repository.FilmRepository;
 import com.example.cinema.repository.TicketRepository;
 import com.example.cinema.repository.UserRoleRepository;
+import com.example.cinema.util.InstantFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -116,8 +116,8 @@ public class SeedingService {
     private List<Ticket> tickets(Film film) {
         List<Ticket> tickets = new ArrayList<>(10);
 
-        List<Instant> times = List.of(LocalDate.now().atTime(18, 0).toInstant(ZoneOffset.ofHours(3)),
-                LocalDate.now().atTime(21, 0).toInstant(ZoneOffset.ofHours(3)));
+        List<Instant> times = List.of(LocalDate.now().atTime(18, 0).toInstant(InstantFormatter.MINSK_OFFSET),
+                LocalDate.now().atTime(21, 0).toInstant(InstantFormatter.MINSK_OFFSET));
 
         for (int i = 1; i <= 7; i++) {
             for (Instant time : times) {
