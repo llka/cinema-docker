@@ -2,7 +2,6 @@ package com.example.cinema.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -41,7 +40,7 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> handleNotValidException(MethodArgumentNotValidException exception) {
+    public ModelAndView handleNotValidException(MethodArgumentNotValidException exception) {
         log.info(exception.getMessage());
 
         StringBuilder message = new StringBuilder();
@@ -51,11 +50,15 @@ public class RestExceptionHandler {
                 .map(ObjectError::getDefaultMessage)
                 .toArray(String[]::new)));
 
-        return new ResponseEntity<>(message.toString(), HttpStatus.BAD_REQUEST);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("message", message);
+        modelAndView.addObject("status", HttpStatus.BAD_REQUEST);
+        modelAndView.setViewName(DEFAULT_ERROR_VIEW);
+        return modelAndView;
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException exception) {
+    public ModelAndView handleConstraintViolationException(ConstraintViolationException exception) {
         log.info(exception.getMessage());
 
         StringBuilder message = new StringBuilder();
@@ -65,6 +68,10 @@ public class RestExceptionHandler {
                 .map(ConstraintViolation::getMessage)
                 .toArray(String[]::new)));
 
-        return new ResponseEntity<>(message.toString(), HttpStatus.BAD_REQUEST);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("message", message);
+        modelAndView.addObject("status", HttpStatus.BAD_REQUEST);
+        modelAndView.setViewName(DEFAULT_ERROR_VIEW);
+        return modelAndView;
     }
 }

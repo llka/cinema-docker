@@ -18,7 +18,7 @@ import javax.validation.Valid;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-public class UserLoginController {
+public class LoginController {
     private final UserService userService;
     private final SecurityService securityService;
 
@@ -37,7 +37,7 @@ public class UserLoginController {
     public String registration(@ModelAttribute("user") @Valid User user, final Model model) {
         String decodedPassword = user.getPassword();
         userService.checkIdUserAlreadyExists(user);
-        user = userService.save(user);
+        user = userService.register(user);
 
         securityService.autoLogin(user.getName(), decodedPassword);
         model.addAttribute("clientSession", securityService.getCurrentSession());

@@ -23,9 +23,13 @@ public class UserService {
                 .orElseThrow(() -> new RestException("User not found by name: " + name, HttpStatus.NOT_FOUND));
     }
 
-    public User save(User user) {
+    public User register(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(new HashSet<>(roleRepository.findAll()));
+        return userRepository.save(user);
+    }
+
+    public User save(User user) {
         return userRepository.save(user);
     }
 

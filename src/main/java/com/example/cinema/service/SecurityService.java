@@ -11,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -26,8 +25,7 @@ public class SecurityService {
     public SecurityService(AuthenticationManager authenticationManager,
             @Qualifier("userDetailsServiceImpl")
                     UserDetailsService userDetailsService,
-            UserService userService,
-            BCryptPasswordEncoder bCryptPasswordEncoder) {
+            UserService userService) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.userService = userService;
@@ -57,7 +55,6 @@ public class SecurityService {
                 log.warn("Unknown Authentication: {}", authentication);
             }
         }
-
         return null;
     }
 
