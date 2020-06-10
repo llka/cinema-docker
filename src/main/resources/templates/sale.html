@@ -2,7 +2,7 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Главная</title>
+    <title>Акции</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" media="screen">
@@ -39,8 +39,10 @@
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 search-form ">
-                        <form th:action="@{/cinema/film/search}" method="GET" enctype="utf8" style=" display: flex; width: 100%;">
-                            <input style="width: 250%;" name="search" type="search" placeholder="Введите запрос для поиска">
+                        <form th:action="@{/cinema/film/search}" method="GET" enctype="utf8"
+                              style=" display: flex; width: 100%;">
+                            <input style="width: 250%;" name="search" type="search"
+                                   placeholder="Введите запрос для поиска">
                             <input style="width: 30%;" type="image" th:src="@{/img/search.png}" class="icon-header">
                         </form>
                     </div>
@@ -65,140 +67,102 @@
         </div>
     </div>
 </header>
-
 <section>
-    <div class="container slCont">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="slider">
-                    <div class="slide1">
-                        <p class="slider_title">
-                            <a th:href="@{/cinema/film}"> Мстители. Финал</a></p>
-                        <p class="slider_text">В кино с 28 апреля</p>
-                        <p class="slider_zhanr">Фэнтези, Фантастика, Приключения, Боевик/ RU 16+ </p>
-                    </div>
-                    <div class="slide2">
-                        <p class="slider_title">Хеллбой </p>
-                        <p class="slider_zhanr">Фэнтези, Фантастика, Приключения, Боевик/ RU 18+ </p>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="catalog">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cent">
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 cent">
                 <div class="title">
-                    Скоро в нашем кинотеатре
+                    Акции
                 </div>
             </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            </div>
         </div>
-        <div class="row">
-            <div class="col-lg-7 col-md-7 col-xs-12">
-                <div class="catalog_item">
-                    <a href="film.html"><img src="img/cat1.jpg" alt=""></a>
-                    <div class="name"><p>В метре друг от друга</p>
-                        <p class="zhanr">Фэнтези, фантастика, боевик, 16+ RU</p>
-                        <div class="hover_bl">
-                            <a href="film.html">
-                                <div class="button">ПОДРОБНЕЕ
-                                </div>
-                            </a>
-                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                                ex ea commodo consequat. </p>
-
+        <div class="row marg2">
+            <div class="col-lg-8 col-md-8 col-sm-10 col-xs-10 text">
+                <div class="row marg2">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 akc">
+                        <img src="img/akc.jpg" alt="">
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                        <div class="akc-title">
+                            <a href="contact_us.html">Утренние сеансы со скидкой!</a>
+                        </div>
+                        <div class="akc-anons">
+                            Utinam iudicabit te per. Elitr diceret ex pri, id persecuti assueverit reformidans vis, nec
+                            debet ludus omittam ad. Ne per detracto laboramus. Usu in idque quando.
+                        </div>
+                    </div>
+                </div>
+                <div class="row marg2">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 akc">
+                        <img src="img/akc.jpg" alt="">
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                        <div class="akc-title">
+                            <a href="contact_us.html">Утренние сеансы со скидкой!</a>
+                        </div>
+                        <div class="akc-anons">
+                            Utinam iudicabit te per. Elitr diceret ex pri, id persecuti assueverit reformidans vis, nec
+                            debet ludus omittam ad. Ne per detracto laboramus. Usu in idque quando.
+                        </div>
+                    </div>
+                </div>
+                <div class="row marg2">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 akc">
+                        <img src="img/akc.jpg" alt="">
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                        <div class="akc-title">
+                            <a href="contact_us.html">Утренние сеансы со скидкой!</a>
+                        </div>
+                        <div class="akc-anons">
+                            Utinam iudicabit te per. Elitr diceret ex pri, id persecuti assueverit reformidans vis, nec
+                            debet ludus omittam ad. Ne per detracto laboramus. Usu in idque quando.
+                        </div>
+                    </div>
+                </div>
+                <div class="row marg2">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 akc">
+                        <img src="img/akc.jpg" alt="">
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                        <div class="akc-title">
+                            <a href="contact_us.html">Утренние сеансы со скидкой!</a>
+                        </div>
+                        <div class="akc-anons">
+                            Utinam iudicabit te per. Elitr diceret ex pri, id persecuti assueverit reformidans vis, nec
+                            debet ludus omittam ad. Ne per detracto laboramus. Usu in idque quando.
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-md-5 col-xs-12">
-                <div class="catalog_item">
-                    <a href="film.html"><img src="img/cat2.jpg" alt=""></a>
-                    <div class="name"><p>Убрать из друзей: Даркнет</p>
-                        <p class="zhanr">Фэнтези, фантастика, боевик, 16+ RU</p>
-                        <div class="hover_bl">
-                            <a href="film.html">
-                                <div class="button">ПОДРОБНЕЕ
-                                </div>
-                            </a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
-                        </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="prokat">
+                    Сейчас в прокате
+                </div>
+                <div class="film">
+                    <a href="film.html"><img src="img/mst.jpg" alt=""></a>
+                    <div class="text">
+                        <a href="film.html">Мстители</a>
+                    </div>
+                    <div class="reit">
+                        Фэнтези, фантастика, боевик, 16+ RU
                     </div>
                 </div>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-xs-12">
-                <div class="catalog_item">
-                    <a href="film.html"><img src="img/cat3.jpg" alt=""></a>
-                    <div class="name">
-                        <p>Отпетые мошенницы</p>
-                        <p class="zhanr">Фэнтези, фантастика, боевик, 16+ RU</p>
-                        <div class="hover_bl">
-                            <a href="film.html">
-                                <div class="button">ПОДРОБНЕЕ
-                                </div>
-                            </a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-
-                        </div>
+                <div class="film">
+                    <a href="film.html"><img src="img/hell.jpg" alt=""></a>
+                    <div class="text">
+                        <a href="film.html">Хеллбой</a>
+                    </div>
+                    <div class="reit">
+                        Фэнтези, фантастика, боевик, 18+ RU
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-xs-12">
-                <div class="catalog_item">
-                    <a href="film.html"><img src="img/cat4.jpg" alt=""></a>
-                    <div class="name">
-                        <p>Война Анны</p>
-                        <p class="zhanr">Фэнтези, фантастика, боевик, 16+ RU</p>
-                        <div class="hover_bl">
-                            <a href="film.html">
-                                <div class="button">ПОДРОБНЕЕ
-                                </div>
-                            </a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-xs-12">
-                <div class="catalog_item">
-                    <a href="film.html"><img src="img/cat5.jpg" alt=""></a>
-                    <div class="name">
-                        <p>Покемон. Детектив Пикачу</p>
-                        <p class="zhanr">Фэнтези, фантастика, боевик, 16+ RU/p>
-                            <div class="hover_bl">
-                                <a href="film.html">
-                                    <div class="button">ПОДРОБНЕЕ
-                                    </div>
-                                </a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
-
-                    </div>
-                </div>
             </div>
         </div>
-    </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 now-butt">
-            <div class="button"><a href="coming_soon.html">Расписание премьер</a>
-            </div>
-        </div>
-    </div>
     </div>
 </section>
 <section class="catalog marg">
@@ -265,7 +229,6 @@
     <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A9c807361b88599cbd1297a7e66c1b3497fff457a938e96de7f8dac2e5d5692b2&amp;source=constructor"
             width="100%" height="400" frameborder="0"></iframe>
 </section>
-
 <div th:replace="footer"/>
 
 </body>

@@ -1,6 +1,5 @@
 package com.example.cinema.controller.ui;
 
-import com.example.cinema.service.FilmService;
 import com.example.cinema.service.SecurityService;
 import com.example.cinema.service.TicketService;
 import lombok.RequiredArgsConstructor;
@@ -20,14 +19,8 @@ import springfox.documentation.annotations.ApiIgnore;
 @RequiredArgsConstructor
 public class CinemaController {
     private final SecurityService securityService;
-    private final FilmService filmService;
     private final TicketService ticketService;
 
-    @GetMapping
-    public String start(final Model model) {
-        addClientSessionAttribute(model);
-        return "start";
-    }
 
     @PostMapping("/film/{filmId}/ticket/{ticketId}/buy")
     public String buyTicketByIdAndFilm(@PathVariable("filmId") Long filmId,
@@ -35,12 +28,6 @@ public class CinemaController {
             final Model model) {
         ticketService.buyTicket(filmId, ticketId);
 
-        addClientSessionAttribute(model);
-        return "cart";
-    }
-
-    @GetMapping("/cart")
-    public String getCartView(final Model model) {
         addClientSessionAttribute(model);
         return "cart";
     }

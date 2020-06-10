@@ -1,0 +1,35 @@
+<footer xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container header_flex">
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                <div class="logo">
+                    <a href="start.html">
+                        <a th:href="@{/cinema}"><img th:src="@{/img/logo.png}"></a>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-5 col-sm-12 col-xs-12 menu_footer ">
+                <a class="menu_item" th:href="@{/cinema/current_films}">Сейчас в прокате</a>
+                <a class="menu_item" th:href="@{/cinema/coming_soon}">Премьеры</a>
+                <a class="menu_item" th:href="@{/cinema/sale}">Акции</a>
+
+            </div>
+            <div class="col-lg-2 col-md-5 col-sm-12 col-xs-12 menu_footer ">
+                <a class="menu_item" th:href="@{/cinema/about}">О кинотеатре</a>
+                <a class="menu_item" th:href="@{/cinema/feedback}">Отзывы</a>
+                <a class="menu_item" th:href="@{/cinema/contact_us}">Контакты</a>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 copy">
+                <div>
+                    2019 © Все права защищены
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                <div class="phone_numbers">
+                    <a href="tel:+375 (99) 999 99 99">Тел. кассы:<br>+375 (99) 999 99 99</a>
+                    <a href="tel:+375 (99) 999 99 99">Тел. администрации:<br>+375 (99) 999 99 99</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
