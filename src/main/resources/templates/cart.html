@@ -93,11 +93,11 @@
                 <td style="width: 20%; text-align: center;" th:text="${ticket.formattedPurchaseTime}"/>
                 <td style="width: 10%; text-align: center;" th:text="${ticket.priceInUSD}"/>
                 <td style="width: 15%; text-align: center;">
-                    <a th:href="@{'/cinema/ticket/' + ${ticket.id} + '/removeFromCart'}"> Remove </a>
+                    <a th:href="@{'/cinema/ticket/' + ${ticket.id} + '/removeFromCart'}"> Убрать </a>
                 </td>
                 <td style="width: 10%; text-align: center;">
                     <a th:onclick="'javascript:alert(\' Sucessfully booked ticket with ID: ' + ${ticket.id} + '\')'"
-                       th:href="@{'/cinema/ticket/' + ${ticket.id} + '/bookFromCart'}">Book </a>
+                       th:href="@{'/cinema/ticket/' + ${ticket.id} + '/bookFromCart'}">Забронировать </a>
                 </td>
             </tr>
             </tbody>
