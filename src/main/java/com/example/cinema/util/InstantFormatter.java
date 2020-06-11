@@ -16,6 +16,7 @@ public class InstantFormatter {
     public static final ZoneOffset MINSK_OFFSET = ZoneOffset.ofHours(3);
 
     public static String format(Instant instant) {
-        return formatter.format(instant);
+        String formatted = formatter.format(instant);
+        return formatted.substring(0, formatted.length() - 4);
     }
 }

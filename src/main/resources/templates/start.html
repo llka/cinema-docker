@@ -39,8 +39,10 @@
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 search-form ">
-                        <form th:action="@{/cinema/film/search}" method="GET" enctype="utf8" style=" display: flex; width: 100%;">
-                            <input style="width: 250%;" name="search" type="search" placeholder="Введите запрос для поиска">
+                        <form th:action="@{/cinema/film/search}" method="GET" enctype="utf8"
+                              style=" display: flex; width: 100%;">
+                            <input style="width: 250%;" name="search" type="search"
+                                   placeholder="Введите запрос для поиска">
                             <input style="width: 30%;" type="image" th:src="@{/img/search.png}" class="icon-header">
                         </form>
                     </div>
@@ -71,6 +73,14 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="slider">
+                    <!--
+                    <div th:each="film : ${allFilms}" th:style="'background:url(' + @{/<path-to-image>} + ');'">
+                        <p class="slider_title">
+                            <a th:href="@{'/cinema/film/' + ${film.id}}" th:text="${film.title}"></a>
+                        </p>
+                        <p class="slider_text">В кино с 28 апреля</p>
+                        <p class="slider_zhanr" th:text="${film.title}">Фэнтези, Фантастика, Приключения, Боевик/ RU 16+ </p>
+                    </div>-->
                     <div class="slide1">
                         <p class="slider_title">
                             <a th:href="@{/cinema/film}"> Мстители. Финал</a></p>
@@ -87,119 +97,124 @@
         </div>
     </div>
 </section>
-<section class="catalog">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cent">
-                <div class="title">
-                    Скоро в нашем кинотеатре
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-7 col-md-7 col-xs-12">
-                <div class="catalog_item">
-                    <a href="film.html"><img src="img/cat1.jpg" alt=""></a>
-                    <div class="name"><p>В метре друг от друга</p>
-                        <p class="zhanr">Фэнтези, фантастика, боевик, 16+ RU</p>
-                        <div class="hover_bl">
-                            <a href="film.html">
-                                <div class="button">ПОДРОБНЕЕ
-                                </div>
-                            </a>
-                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                                ex ea commodo consequat. </p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5 col-md-5 col-xs-12">
-                <div class="catalog_item">
-                    <a href="film.html"><img src="img/cat2.jpg" alt=""></a>
-                    <div class="name"><p>Убрать из друзей: Даркнет</p>
-                        <p class="zhanr">Фэнтези, фантастика, боевик, 16+ RU</p>
-                        <div class="hover_bl">
-                            <a href="film.html">
-                                <div class="button">ПОДРОБНЕЕ
-                                </div>
-                            </a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-xs-12">
-                <div class="catalog_item">
-                    <a href="film.html"><img src="img/cat3.jpg" alt=""></a>
-                    <div class="name">
-                        <p>Отпетые мошенницы</p>
-                        <p class="zhanr">Фэнтези, фантастика, боевик, 16+ RU</p>
-                        <div class="hover_bl">
-                            <a href="film.html">
-                                <div class="button">ПОДРОБНЕЕ
-                                </div>
-                            </a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-xs-12">
-                <div class="catalog_item">
-                    <a href="film.html"><img src="img/cat4.jpg" alt=""></a>
-                    <div class="name">
-                        <p>Война Анны</p>
-                        <p class="zhanr">Фэнтези, фантастика, боевик, 16+ RU</p>
-                        <div class="hover_bl">
-                            <a href="film.html">
-                                <div class="button">ПОДРОБНЕЕ
-                                </div>
-                            </a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-xs-12">
-                <div class="catalog_item">
-                    <a href="film.html"><img src="img/cat5.jpg" alt=""></a>
-                    <div class="name">
-                        <p>Покемон. Детектив Пикачу</p>
-                        <p class="zhanr">Фэнтези, фантастика, боевик, 16+ RU/p>
-                            <div class="hover_bl">
-                                <a href="film.html">
-                                    <div class="button">ПОДРОБНЕЕ
+<section class=" catalog">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cent">
+                                    <div class="title">
+                                        Скоро в нашем кинотеатре
                                     </div>
-                                </a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-7 col-md-7 col-xs-12">
+                                    <div class="catalog_item">
+                                        <a href="film.html"><img src="img/cat1.jpg" alt=""></a>
+                                        <div class="name"><p>В метре друг от друга</p>
+                                            <p class="zhanr">Фэнтези, фантастика, боевик, 16+ RU</p>
+                                            <div class="hover_bl">
+                                                <a href="film.html">
+                                                    <div class="button">ПОДРОБНЕЕ
+                                                    </div>
+                                                </a>
+                                                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut
+                                                    enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                                                    ut aliquip
+                                                    ex ea commodo consequat. </p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-xs-12">
+                                    <div class="catalog_item">
+                                        <a href="film.html"><img src="img/cat2.jpg" alt=""></a>
+                                        <div class="name"><p>Убрать из друзей: Даркнет</p>
+                                            <p class="zhanr">Фэнтези, фантастика, боевик, 16+ RU</p>
+                                            <div class="hover_bl">
+                                                <a href="film.html">
+                                                    <div class="button">ПОДРОБНЕЕ
+                                                    </div>
+                                                </a>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                                                    aliqua.</p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                    <div class="catalog_item">
+                                        <a href="film.html"><img src="img/cat3.jpg" alt=""></a>
+                                        <div class="name">
+                                            <p>Отпетые мошенницы</p>
+                                            <p class="zhanr">Фэнтези, фантастика, боевик, 16+ RU</p>
+                                            <div class="hover_bl">
+                                                <a href="film.html">
+                                                    <div class="button">ПОДРОБНЕЕ
+                                                    </div>
+                                                </a>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                                                    aliqua. </p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                    <div class="catalog_item">
+                                        <a href="film.html"><img src="img/cat4.jpg" alt=""></a>
+                                        <div class="name">
+                                            <p>Война Анны</p>
+                                            <p class="zhanr">Фэнтези, фантастика, боевик, 16+ RU</p>
+                                            <div class="hover_bl">
+                                                <a href="film.html">
+                                                    <div class="button">ПОДРОБНЕЕ
+                                                    </div>
+                                                </a>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                                                    aliqua. </p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                    <div class="catalog_item">
+                                        <a href="film.html"><img src="img/cat5.jpg" alt=""></a>
+                                        <div class="name">
+                                            <p>Покемон. Детектив Пикачу</p>
+                                            <p class="zhanr">Фэнтези, фантастика, боевик, 16+ RU/p>
+                                                <div class="hover_bl">
+                                                    <a href="film.html">
+                                                        <div class="button">ПОДРОБНЕЕ
+                                                        </div>
+                                                    </a>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 now-butt">
+                            <div class="button"><a th:href="@{/cinema/coming_soon}">Расписание премьер</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 now-butt">
-            <div class="button"><a href="coming_soon.html">Расписание премьер</a>
-            </div>
-        </div>
-    </div>
-    </div>
 </section>
 <section class="catalog marg">
     <div class="container">

@@ -1,5 +1,6 @@
 package com.example.cinema.controller.ui;
 
+import com.example.cinema.service.FilmService;
 import com.example.cinema.service.SecurityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @RequiredArgsConstructor
 public class CinemaViewController {
     private final SecurityService securityService;
+    private final FilmService filmService;
 
     @GetMapping
     public String getStartView(final Model model) {
@@ -30,42 +32,43 @@ public class CinemaViewController {
     }
 
     @GetMapping("/sale")
-    public String getSalesView(final Model model){
+    public String getSalesView(final Model model) {
         addClientSessionAttribute(model);
         return "sale";
     }
 
     @GetMapping("/current_films")
-    public String getCurrentFilmsView(final Model model){
+    public String getCurrentFilmsView(final Model model) {
         addClientSessionAttribute(model);
         return "current_films";
     }
 
     @GetMapping("/coming_soon")
-    public String getComingSoonView(final Model model){
+    public String getComingSoonView(final Model model) {
         addClientSessionAttribute(model);
         return "coming_soon";
     }
 
     @GetMapping("/about")
-    public String getAboutView(final Model model){
+    public String getAboutView(final Model model) {
         addClientSessionAttribute(model);
         return "about";
     }
 
     @GetMapping("/feedback")
-    public String getFeedbackView(final Model model){
+    public String getFeedbackView(final Model model) {
         addClientSessionAttribute(model);
         return "feedback";
     }
 
     @GetMapping("/contact_us")
-    public String getContactUsView(final Model model){
+    public String getContactUsView(final Model model) {
         addClientSessionAttribute(model);
         return "contact_us";
     }
 
     private void addClientSessionAttribute(final Model model) {
         model.addAttribute("clientSession", securityService.getCurrentSession());
+        //model.addAttribute("allFilms", filmService.findAll());
     }
 }

@@ -23,14 +23,14 @@
         </div>
         <div class="user-info-container">
             <div th:if="${clientSession.authenticated}" class="user-info">
-                <div th:text=" 'Authenticated as ' + ${clientSession.user.name}"></div>
-                <div><a th:href="@{/logout}">Logout</a></div>
-                <div><a th:href="@{/cinema/cart}">Cart</a></div>
+                <div th:text=" 'Аккаунт: ' + ${clientSession.user.name}"></div>
+                <div><a th:href="@{/logout}">Выйти</a></div>
+                <div><a th:href="@{/cinema/cart}">Корзина</a></div>
             </div>
 
             <div th:if="${!clientSession.authenticated}" class="user-info">
-                <div th:text=" 'Not Authenticated '"></div>
-                <div><a th:href="@{/login}">Sign in</a></div>
+                <div th:text=" 'Вы не авторизованы '"></div>
+                <div><a th:href="@{/login}">Войти</a></div>
             </div>
         </div>
     </div>
@@ -74,14 +74,13 @@
         <table class="table table-striped" style="color: black;background: white;">
             <thead>
             <tr>
-                <th style="width: 10%; text-align: center;" scope="col">Id</th>
                 <th style="width: 15%; text-align: center;" scope="col">Film</th>
-                <th style="width: 10%; text-align: center;" scope="col">Place Number</th>
-                <th style="width: 20%; text-align: center;" scope="col">Film Start Time</th>
-                <th style="width: 20%; text-align: center;" scope="col">Purchase Time</th>
-                <th style="width: 10%; text-align: center;" scope="col">Price $</th>
-                <th style="width: 8%; text-align: center;" scope="col">Remove</th>
-                <th style="width: 7%; text-align: center;" scope="col">Book</th>
+                <th style="width: 10%; text-align: center;" scope="col">Место</th>
+                <th style="width: 20%; text-align: center;" scope="col">Начало сеанса</th>
+                <th style="width: 20%; text-align: center;" scope="col">Время покупки</th>
+                <th style="width: 10%; text-align: center;" scope="col">Цена $</th>
+                <th style="width: 15%; text-align: center;" scope="col">Убрать</th>
+                <th style="width: 10%; text-align: center;" scope="col">Забронировать</th>
             </tr>
             </thead>
             <tbody>

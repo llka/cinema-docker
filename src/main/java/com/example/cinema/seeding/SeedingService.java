@@ -36,9 +36,9 @@ public class SeedingService {
 
         genreRepository.saveAll(genres());
 
-        filmRepository.save(filmAvengers(genreRepository.findByName("comedy").get()));
+        filmRepository.save(filmAvengers(genreRepository.findByName("Комедия").get()));
 
-        filmRepository.save(filmParasite(genreRepository.findByName("drama").get()));
+        filmRepository.save(filmParasite(genreRepository.findByName("Драма").get()));
 
         filmRepository.findAll()
                 .forEach(film -> ticketRepository.saveAll(tickets(film)));
@@ -53,9 +53,9 @@ public class SeedingService {
 
     private Film filmAvengers(FilmGenre genre) {
         Film film = new Film();
-        film.setTitle("Avengers. Final ");
+        film.setTitle("Мстители. Финал ");
         film.setRunningTimeInMinutes(120);
-        film.setCountry("USA");
+        film.setCountry("США");
         film.setReleaseYear(2019);
         film.setGenres(Set.of(genre));
         film.setActors(actorsAvengers());
@@ -65,9 +65,9 @@ public class SeedingService {
 
     private Film filmParasite(FilmGenre genre) {
         Film film = new Film();
-        film.setTitle("Parasite ");
+        film.setTitle("Паразиты ");
         film.setRunningTimeInMinutes(132);
-        film.setCountry("South Korea");
+        film.setCountry("Корея");
         film.setReleaseYear(2019);
         film.setGenres(Set.of(genre));
         film.setActors(actorsParasite());
@@ -77,13 +77,13 @@ public class SeedingService {
 
     private Set<Actor> actorsAvengers() {
         Actor a = new Actor();
-        a.setFirstName("Vin");
-        a.setLastName("Diesel");
+        a.setFirstName("Вин");
+        a.setLastName("Дизель");
         a.setBirthYear(1970);
 
         Actor b = new Actor();
-        b.setFirstName("Kurt");
-        b.setLastName("Russell");
+        b.setFirstName("Курт");
+        b.setLastName("Рассел");
         b.setBirthYear(1972);
 
         return new HashSet<>(List.of(a, b));
@@ -91,13 +91,13 @@ public class SeedingService {
 
     private Set<Actor> actorsParasite() {
         Actor a = new Actor();
-        a.setFirstName("Kwai");
-        a.setLastName("Ghon");
+        a.setFirstName("Квай");
+        a.setLastName("Гон");
         a.setBirthYear(1970);
 
         Actor b = new Actor();
-        b.setFirstName("J Son");
-        b.setLastName("Park");
+        b.setFirstName("Джей Сон");
+        b.setLastName("Парк");
         b.setBirthYear(1972);
 
         return new HashSet<>(List.of(a, b));
@@ -105,10 +105,10 @@ public class SeedingService {
 
     private List<FilmGenre> genres() {
         FilmGenre comedy = new FilmGenre();
-        comedy.setName("comedy");
+        comedy.setName("Комедия");
 
         FilmGenre drama = new FilmGenre();
-        drama.setName("drama");
+        drama.setName("Драма");
 
         return List.of(comedy, drama);
     }

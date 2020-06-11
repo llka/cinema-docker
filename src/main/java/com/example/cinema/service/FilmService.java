@@ -31,7 +31,7 @@ public class FilmService {
     }
 
     public Film getAvengersFilm() {
-        return findFilmByTitle("Avengers");
+        return findFilmByTitle("Мстители");
     }
 
     public Film findFilmByTitle(String title) {
