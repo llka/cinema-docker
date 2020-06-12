@@ -70,7 +70,7 @@
 
 <div style="background: #131617; padding-bottom: 15%;">
     <div th:if="${clientSession.authenticated}" class="container">
-        <h2>Your tickets:</h2>
+        <h2>Ваши билеты:</h2>
         <table class="table table-striped" style="color: black;background: white;">
             <thead>
             <tr>
@@ -96,7 +96,7 @@
                     <a th:href="@{'/cinema/ticket/' + ${ticket.id} + '/removeFromCart'}"> Убрать </a>
                 </td>
                 <td style="width: 10%; text-align: center;">
-                    <a th:onclick="'javascript:alert(\' Sucessfully booked ticket with ID: ' + ${ticket.id} + '\')'"
+                    <a th:onclick="'javascript:alert(\' Билет забронирован! ID: ' + ${ticket.id} + '\')'"
                        th:href="@{'/cinema/ticket/' + ${ticket.id} + '/bookFromCart'}">Забронировать </a>
                 </td>
             </tr>

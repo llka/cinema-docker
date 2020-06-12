@@ -14,13 +14,12 @@ public class InstantFormatter {
     public static final ZoneOffset MINSK_OFFSET = ZoneOffset.ofHours(3);
     private static final DateTimeFormatter formatter = DateTimeFormatter
             .ofLocalizedDateTime(FormatStyle.LONG)
-            .withLocale(Locale.UK)
+            .withLocale(Locale.forLanguageTag("ru"))
             .withZone(ZoneId.ofOffset("UTC", MINSK_OFFSET));
 
     public static String format(Instant instant) {
         String formatted = formatter.format(instant);
-        log.info("Formatted date UTC+03:00");
-        log.info(formatted);
-        return formatted.substring(0, formatted.length() - 9);
+        formatted = formatted.replace(" г.", "");
+        return formatted.substring(0, formatted.indexOf("UTC"));
     }
 }
